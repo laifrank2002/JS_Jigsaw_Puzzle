@@ -20,6 +20,7 @@ function puzzle_piece(puzzle_image, sx, sy, sWidth, sHeight, x, y, width, height
 	
 	this.selected_x = 0;
 	this.selected_y = 0;
+	this.isSnapped = true;
 	// pixel margin for the pieces.
 	this.margin = (this.width + this.height)/8;
 	
@@ -76,6 +77,14 @@ function puzzle_piece(puzzle_image, sx, sy, sWidth, sHeight, x, y, width, height
 	{
 		this.selected_x = x - this.x;
 		this.selected_y = y - this.y;
+		this.isSnapped = false;
+	}
+	
+	this.move = function(x,y)
+	{
+		this.x = x;
+		this.y = y;
+		this.isSnapped = false;
 	}
 	
 	this.snap = function()
@@ -88,6 +97,7 @@ function puzzle_piece(puzzle_image, sx, sy, sWidth, sHeight, x, y, width, height
 		{
 			this.x = this.original_x;
 			this.y = this.original_y;
+			this.isSnapped = true;
 		}
 	}
 }

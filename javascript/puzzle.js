@@ -1,7 +1,8 @@
 /**
 	A puzzle, made up of puzzle pieces.
  */
-
+// TODO
+// ALL THOSE THAT ARE SNAPPED ARE OF A LOWER PRIORITY THAN THOSE THAT AREN'T SNAPPED.
 function Puzzle(puzzle_image, width, height)
 {
 	this.puzzle_image = puzzle_image;
@@ -36,13 +37,30 @@ function Puzzle(puzzle_image, width, height)
 	
 	this.draw = function(context)
 	{
-		// draw pieces
+		// draw pieces in reverse order in order to convey selecting order.
+		// draw all snapped first.
 		
-		for (var x = 0; x < width; x++)
+		for (var x = width - 1; x >= 0; x--)
 		{
-			for (var y = 0; y < height; y++)
+			for (var y = height - 1; y >= 0; y--)
 			{
-				this.pieces[x][y].draw(context, this.stretch_x, this.stretch_y);
+				if (this.pieces[x][y].isSnapped)
+				{
+					this.pieces[x][y].draw(context, this.stretch_x, this.stretch_y);
+				}
+			}
+		}
+		
+		// then draw unsnapped 
+		
+		for (var x = width - 1; x >= 0; x--)
+		{
+			for (var y = height - 1; y >= 0; y--)
+			{
+				if (!this.pieces[x][y].isSnapped)
+				{
+					this.pieces[x][y].draw(context, this.stretch_x, this.stretch_y);
+				}
 			}
 		}
 		
@@ -61,16 +79,41 @@ function Puzzle(puzzle_image, width, height)
 		{
 			var mouseX = x;
 			var mouseY = y;
+			
+			// test unsnapped first 
+			
 			for (var x = 0; x < width; x++)
 			{
 				for (var y = 0; y < height; y++)
 				{
-					if(this.pieces[x][y].isInBound(mouseX,mouseY))
+					if (!this.pieces[x][y].isSnapped)
 					{
-						this.selected_piece = this.pieces[x][y];
-						this.selected_piece.handle_select(mouseX,mouseY);
-						Engine.log(this.selected_piece);
-						return;
+						if(this.pieces[x][y].isInBound(mouseX,mouseY))
+						{
+							this.selected_piece = this.pieces[x][y];
+							this.selected_piece.handle_select(mouseX,mouseY);
+							Engine.log(this.selected_piece);
+							return;
+						}
+					}
+				}
+			}
+			
+			// then test snapped
+			
+			for (var x = 0; x < width; x++)
+			{
+				for (var y = 0; y < height; y++)
+				{
+					if (this.pieces[x][y].isSnapped)
+					{
+						if(this.pieces[x][y].isInBound(mouseX,mouseY))
+						{
+							this.selected_piece = this.pieces[x][y];
+							this.selected_piece.handle_select(mouseX,mouseY);
+							Engine.log(this.selected_piece);
+							return;
+						}
 					}
 				}
 			}
@@ -86,6 +129,11 @@ function Puzzle(puzzle_image, width, height)
 			
 		}
 	};
-
+	
+	// todo 
+	this.scramble = function()
+	{
+		
+	};
 }
 

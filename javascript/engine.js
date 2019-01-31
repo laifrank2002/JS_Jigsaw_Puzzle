@@ -1,5 +1,8 @@
 /** 
 	Portable lightweight engine.
+	
+	REDO SELECT/DRAG'n'DROP!
+	
 	@author Frank Lai 2002
 	@version 2018-12-11
 	https://github.com/laifrank2002
