@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="javascript/engine.js"></script>
+	<script src="javascript/canvas_handler.js"></script>
+	<script src="javascript/image_loader.js"></script>
+	
+	<script src="javascript/mouse_handler.js"></script>
+	
+	
+	
+	<script src="javascript/puzzle.js"></script>
+	<script src="javascript/puzzle_piece.js"></script>
+	<script src="javascript/puzzle_image.js"></script>
+	<script src="javascript/puzzle_handler.js"></script>
+
+	<script>
+		// these need to be loaded good and beforehand.
+		var image_library = {
+			"pumpkin1": new puzzle_image("assets/puzzles/pumpkin1.jpg",600,500),
+		};
+		
+		// when the window is loaded, then the engine can be safely initialized
+		window.onload = function()
+		{
+			Engine.initialize();
+		}
+		
+	</script>
+</head>
+</body>
+	<div id="canvas_container">
+		<canvas height="500px" width="800px" id="main_canvas">Your browser does not support the canvas element.</canvas>
+	</div>
+	<h1>JS Jigsaw</h1>
+	<h2>By Frank Lai</h2>
+</body>
+</html>
