@@ -126,14 +126,54 @@ function Puzzle(puzzle_image, width, height)
 		{
 			this.selected_piece.x = Engine.cursor_x - this.selected_piece.selected_x;
 			this.selected_piece.y = Engine.cursor_y - this.selected_piece.selected_y;
-			
+			this.selected_piece.restitute();
 		}
 	};
 	
-	// todo 
 	this.scramble = function()
 	{
-		
+		for (var x = width - 1; x >= 0; x--)
+		{
+			for (var y = height - 1; y >= 0; y--)
+			{
+				this.pieces[x][y].move(Math.random() * (puzzle_handler.boundingRectangle.width - puzzle_handler.boundingRectangle.x)
+					,Math.random() * (puzzle_handler.boundingRectangle.height - puzzle_handler.boundingRectangle.y));
+			}
+		}
 	};
+	
+	// check if we've won or not.
+	this.check = function()
+	{
+		var flag = true;
+		for (var x = 0; x < width; x++)
+		{
+			for (var y = 0; y < height; y++)
+			{
+				if (!this.pieces[x][y].isSnapped)
+				{
+					flag = false;
+				}
+			}
+		}
+		return flag;
+	}
+	
+	// solves the puzzle.
+	this.solve = function()
+	{
+		for (var x = 0; x < width; x++)
+		{
+			for (var y = 0; y < height; y++)
+			{
+				if (!this.pieces[x][y].isSnapped)
+				{
+					this.pieces[x][y].x = this.pieces[x][y].original_x;
+					this.pieces[x][y].y = this.pieces[x][y].original_y;
+					this.pieces[x][y].snap();
+				}
+			}
+		}
+	}
 }
 

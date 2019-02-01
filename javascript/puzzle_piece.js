@@ -85,6 +85,7 @@ function puzzle_piece(puzzle_image, sx, sy, sWidth, sHeight, x, y, width, height
 		this.x = x;
 		this.y = y;
 		this.isSnapped = false;
+		this.restitute();
 	}
 	
 	this.snap = function()
@@ -100,4 +101,26 @@ function puzzle_piece(puzzle_image, sx, sy, sWidth, sHeight, x, y, width, height
 			this.isSnapped = true;
 		}
 	}
+	
+	this.restitute = function()
+	{
+		// restitute so always in bounds.
+		if (this.x < puzzle_handler.boundingRectangle.x)
+		{
+			this.x = puzzle_handler.boundingRectangle.x;
+		}
+		if (this.y < puzzle_handler.boundingRectangle.y)
+		{
+			this.y = puzzle_handler.boundingRectangle.y;
+		}
+		if (this.x + this.width> puzzle_handler.boundingRectangle.x + puzzle_handler.boundingRectangle.width)
+		{
+			this.x = puzzle_handler.boundingRectangle.x + puzzle_handler.boundingRectangle.width - this.width;
+		}
+		if (this.y + this.height > puzzle_handler.boundingRectangle.y + puzzle_handler.boundingRectangle.height)
+		{
+			this.y = puzzle_handler.boundingRectangle.y + puzzle_handler.boundingRectangle.height - this.height;
+		}
+	}
+	
 }

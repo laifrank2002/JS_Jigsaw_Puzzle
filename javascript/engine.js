@@ -2,6 +2,7 @@
 	Portable lightweight engine.
 	
 	REDO SELECT/DRAG'n'DROP!
+		BUG- When click outside the canvas, make one click count.
 	
 	@author Frank Lai 2002
 	@version 2018-12-11
@@ -56,8 +57,8 @@ var Engine = (
 				Canvas.initialize();
 				puzzle_handler.initialize();
 				
-				puzzles["pumpkin_puzzle"] = new Puzzle(image_library["pumpkin1"],10,8);
-				puzzle_handler.set_current_puzzle(puzzles["pumpkin_puzzle"]);
+				
+				
 				
 				mouse_handler.activate(Canvas.canvas);
 				
@@ -71,6 +72,11 @@ var Engine = (
 				
 				
 				requestAnimationFrame(Engine.animate); // init animation when all is ready
+				
+				// init puzzle
+				puzzles["pumpkin_puzzle"] = new Puzzle(image_library["pumpkin1"],10,8);
+				puzzle_handler.set_current_puzzle(puzzles["pumpkin_puzzle"]);
+				puzzle_handler.scramble();
 			},
 			
 			log: function(message)
