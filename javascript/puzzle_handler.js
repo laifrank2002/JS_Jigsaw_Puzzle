@@ -75,6 +75,8 @@ var puzzle_handler = (
 						
 						context.fillStyle = gradient;
 						context.fillText("Hooray",100,250);
+						
+						Game.stop_timer();
 					}
 				}
 				
@@ -82,7 +84,9 @@ var puzzle_handler = (
 			
 			handle_click: function(x,y)
 			{
-				current_puzzle.handle_click(x,y);
+				var mouseX = x - boundingRectangle.x;
+				var mouseY = y - boundingRectangle.y;
+				current_puzzle.handle_click(mouseX, mouseY);
 			},
 		}
 	}

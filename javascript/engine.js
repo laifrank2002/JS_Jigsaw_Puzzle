@@ -77,6 +77,7 @@ var Engine = (
 				puzzles["pumpkin_puzzle"] = new Puzzle(image_library["pumpkin1"],10,8);
 				puzzle_handler.set_current_puzzle(puzzles["pumpkin_puzzle"]);
 				puzzle_handler.scramble();
+				Game.start_timer();
 			},
 			
 			log: function(message)
@@ -132,10 +133,44 @@ var Engine = (
 				puzzle_handler.current_puzzle.handle_selected();
 			},
 			
+			// outdated, to be deprecated
+			/*
 			handle_click: function(event)
 			{
 				var bounds = Canvas.canvas.getBoundingClientRect();
-				puzzle_handler.handle_click(event.clientX - bounds.x,event.clientY - bounds.y);
+				var mouseX = event.clientX - bounds.x;
+				var mouseY = event.clientY - bounds.y;
+				
+				puzzle_handler.handle_click(mouseX, mouseY);
+			},
+			*/
+			
+			handle_mouse_up: function(event)
+			{
+				var bounds = Canvas.canvas.getBoundingClientRect();
+				var mouseX = event.clientX - bounds.x;
+				var mouseY = event.clientY - bounds.y;
+				
+				puzzle_handler.handle_click(mouseX, mouseY);
+			},
+			// only click UI once, but click puzzle_handler twice
+			handle_mouse_down: function(event)
+			{
+				var bounds = Canvas.canvas.getBoundingClientRect();
+				var mouseX = event.clientX - bounds.x;
+				var mouseY = event.clientY - bounds.y;
+				
+				if (mouseX < puzzle_handler.boundingRectangle.width - puzzle_handler.boundingRectangle.x
+					&& mouseY < puzzle_handler.boundingRectangle.height - puzzle_handler.boundingRectangle.y
+					&& mouseX > puzzle_handler.boundingRectangle.x
+					&& mouseY > puzzle_handler.boundingRectangle.y)
+				{
+					puzzle_handler.handle_click(mouseX, mouseY);
+				}
+				else 
+				{
+					
+				}
 			},
 		}
 	}

@@ -35,6 +35,90 @@ function Puzzle(puzzle_image, width, height)
 		this.pieces.push(line);
 	}
 	
+	// for each piece, add edges
+	for (var x = 0; x < width; x++)
+	{
+		for (var y = 0; y < height; y++)
+		{
+			// check neighbours
+			
+			// north
+			if (y > 0)
+			{
+				if (this.pieces[x][y].edges.north === "normal"
+					&& this.pieces[x][y-1].edges.south === "normal")
+				{
+					if (Math.random() > 0.6)
+					{
+						this.pieces[x][y].edges.north = "tooth";
+						this.pieces[x][y-1].edges.south = "hole";
+					}
+					else 
+					{
+						this.pieces[x][y].edges.north = "hole";
+						this.pieces[x][y-1].edges.south = "tooth";
+					}
+				}
+			}
+			// south
+			if (y < 0)
+			{
+				if (this.pieces[x][y].edges.south === "normal"
+					&& this.pieces[x][y+1].edges.north === "normal")
+				{
+					if (Math.random() > 0.3)
+					{
+						this.pieces[x][y].edges.south = "tooth";
+						this.pieces[x][y+1].edges.north = "hole";
+					}
+					else 
+					{
+						this.pieces[x][y].edges.south = "hole";
+						this.pieces[x][y+1].edges.north = "tooth";
+					}
+				}
+			}
+			// east 
+			if (x < width - 1)
+			{
+				if (this.pieces[x][y].edges.east === "normal"
+					&& this.pieces[x+1][y].edges.west === "normal")
+				{
+					if (Math.random() > 0.2)
+					{
+						this.pieces[x][y].edges.east = "tooth";
+						this.pieces[x+1][y].edges.west = "hole";
+					}
+					else 
+					{
+						this.pieces[x][y].edges.east = "hole";
+						this.pieces[x+1][y].edges.west = "tooth";
+					}
+				}
+			}
+			// west  
+			if (x > 0)
+			{
+				if (this.pieces[x][y].edges.west === "normal"
+					&& this.pieces[x-1][y].edges.east === "normal")
+				{
+					if (Math.random() > 0.2)
+					{
+						this.pieces[x][y].edges.west = "tooth";
+						this.pieces[x-1][y].edges.east = "hole";
+					}
+					else 
+					{
+						this.pieces[x][y].edges.west = "hole";
+						this.pieces[x-1][y].edges.east = "tooth";
+					}
+				}
+			}
+		}
+	} // end of adding edges
+	
+	
+	
 	this.draw = function(context)
 	{
 		// draw pieces in reverse order in order to convey selecting order.

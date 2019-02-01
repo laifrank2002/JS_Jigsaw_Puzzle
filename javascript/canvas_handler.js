@@ -52,8 +52,9 @@ var Canvas = (
 				
 				// restore to draw UI.
 				context.restore();
-				// draw the UI on the right.
 				
+				// draw the UI on the right.
+				Game.draw(context, lapse);
 			},
 			
 			draw_background: function()

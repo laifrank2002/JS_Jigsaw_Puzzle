@@ -24,18 +24,93 @@ function puzzle_piece(puzzle_image, sx, sy, sWidth, sHeight, x, y, width, height
 	// pixel margin for the pieces.
 	this.margin = (this.width + this.height)/8;
 	
-	this.edges = [];
-	this.neighbours = [];
+	this.edges = {
+		north: "normal",
+		south: "normal",
+		east: "normal",
+		west: "normal",
+	};
 	
 	this.draw = function(context, stretch_x, stretch_y)
 	{
+		// consts
+		//var TOOTH_SIZE = this.width/5;
+		//
 		context.save();
 		
 		context.beginPath();
 		context.lineWidth = 1;
-		context.rect(this.x,this.y,this.width,this.height);
+		// draw NSEW instead of rect
+		context.moveTo(this.x,this.y)
+		
+		if(this.edges.north === "tooth")
+		{
+			context.lineTo(this.x + this.width * 2/5, this.y);
+			context.lineTo(this.x + this.width * 2/5, this.y - this.width/5);
+			context.lineTo(this.x + this.width * 3/5, this.y - this.width/5);
+			context.lineTo(this.x + this.width * 3/5, this.y);
+		}
+		else if(this.edges.north === "hole")
+		{
+			context.lineTo(this.x + this.width * 2/5, this.y);
+			context.lineTo(this.x + this.width * 2/5, this.y + this.width/5);
+			context.lineTo(this.x + this.width * 3/5, this.y + this.width/5);
+			context.lineTo(this.x + this.width * 3/5, this.y);
+		}
+		context.lineTo(this.x + this.width, this.y);
+		
+		if(this.edges.east === "tooth")
+		{
+			context.lineTo(this.x + this.width, this.y + this.width * 2/5);
+			context.lineTo(this.x + this.width + this.width/5, this.y + this.width * 2/5);
+			context.lineTo(this.x + this.width + this.width/5, this.y + this.width * 3/5 + 2);
+			context.lineTo(this.x + this.width, this.y + this.width * 3/5 + 2);
+		}
+		else if(this.edges.east === "hole")
+		{
+			context.lineTo(this.x + this.width, this.y + this.width * 2/5);
+			context.lineTo(this.x + this.width - this.width/5, this.y + this.width * 2/5);
+			context.lineTo(this.x + this.width - this.width/5, this.y + this.width * 3/5 + 2);
+			context.lineTo(this.x + this.width, this.y + this.width * 3/5 + 2);
+		}
+		context.lineTo(this.x + this.width, this.y + this.height);
+		
+		if(this.edges.south === "tooth")
+		{
+			context.lineTo(this.x + this.width * 3/5, this.y + this.height);
+			context.lineTo(this.x + this.width * 3/5, this.y + this.height + this.width/5);
+			context.lineTo(this.x + this.width * 2/5, this.y + this.height + this.width/5);
+			context.lineTo(this.x + this.width * 2/5, this.y + this.height);
+		}
+		else if(this.edges.south === "hole")
+		{
+			context.lineTo(this.x + this.width * 3/5, this.y + this.height);
+			context.lineTo(this.x + this.width * 3/5, this.y + this.height - this.width/5);
+			context.lineTo(this.x + this.width * 2/5, this.y + this.height - this.width/5);
+			context.lineTo(this.x + this.width * 2/5, this.y + this.height);
+		}
+		context.lineTo(this.x, this.y + this.height);
+		
+		if(this.edges.west === "tooth")
+		{
+			context.lineTo(this.x, this.y + this.height - this.width * 2/5);
+			context.lineTo(this.x - this.width/5, this.y + this.height - this.width * 2/5);
+			context.lineTo(this.x - this.width/5, this.y + this.height - this.width * 3/5 - 2);
+			context.lineTo(this.x, this.y + this.height - this.width * 3/5 - 2);
+		}
+		else if(this.edges.west === "hole")
+		{
+			context.lineTo(this.x, this.y + this.height - this.width * 2/5);
+			context.lineTo(this.x + this.width/5, this.y + this.height - this.width * 2/5);
+			context.lineTo(this.x + this.width/5, this.y + this.height - this.width * 3/5);
+			context.lineTo(this.x, this.y + this.height - this.width * 3/5);
+		}
+		context.lineTo(this.x, this.y);
+		
+		//context.rect(this.x,this.y,this.width,this.height);
 		context.stroke();
 		context.clip();
+		
 		// clip in the image
 		context.drawImage(this.puzzle_image.image
 			,this.sx - (this.margin / stretch_x)
@@ -122,5 +197,4 @@ function puzzle_piece(puzzle_image, sx, sy, sWidth, sHeight, x, y, width, height
 			this.y = puzzle_handler.boundingRectangle.y + puzzle_handler.boundingRectangle.height - this.height;
 		}
 	}
-	
 }
