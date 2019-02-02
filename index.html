@@ -5,10 +5,13 @@
 	<script src="javascript/engine.js"></script>
 	<script src="javascript/canvas_handler.js"></script>
 	<script src="javascript/image_loader.js"></script>
-	
 	<script src="javascript/mouse_handler.js"></script>
 	
 	<script src="javascript/game.js"></script>
+	<script src="javascript/JS_page.js"></script>
+	<script src="javascript/JS_button.js"></script>
+	<script src="javascript/JS_tooltip.js"></script>
+	<script src="javascript/page_manager.js"></script>
 	
 	<script src="javascript/puzzle.js"></script>
 	<script src="javascript/puzzle_piece.js"></script>
@@ -18,7 +21,11 @@
 	<script>
 		// these need to be loaded good and beforehand.
 		var image_library = {
-			"pumpkin1": new puzzle_image("assets/puzzles/pumpkin1.jpg",600,500),
+			"pumpkin1": new puzzle_image("assets/puzzles/pumpkin1.jpg",500,400),
+			"level1": new puzzle_image("assets/puzzles/swan_lake.jpg",500,400),
+			"level2": new puzzle_image("assets/puzzles/downtown.jpg",500,400),
+			"level3": new puzzle_image("assets/puzzles/black_forest_cloudy.jpg",500,400),
+			"level4": new puzzle_image("assets/puzzles/toronto_crest_1.png",500,400),
 		};
 		
 		// when the window is loaded, then the engine can be safely initialized
@@ -35,5 +42,6 @@
 	</div>
 	<h1>JS Jigsaw</h1>
 	<h2>By Frank Lai</h2>
+	<h2>Photo Credits to Julian Will</h2>
 </body>
 </html>

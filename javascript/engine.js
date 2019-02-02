@@ -50,15 +50,13 @@ var Engine = (
 			get cursor_y() { return cursor.y },
 			
 			get viewport() { return viewport },
-			
+			get puzzles() { return puzzles },
 			initialize: function()
 			{
 				Engine.log("Initializing Engine...");
 				Canvas.initialize();
 				puzzle_handler.initialize();
-				
-				
-				
+				page_manager.initialize();
 				
 				mouse_handler.activate(Canvas.canvas);
 				
@@ -70,14 +68,14 @@ var Engine = (
 					cursor.y = event.pageY - bounds.y;
 				}
 				
+				// write a new puzzle 
+				puzzles["pumpkin_puzzle"] = new Puzzle(image_library["pumpkin1"],6,5,50,50);
+				puzzles["level1"] = new Puzzle(image_library["level1"],4,4,50,50);
+				puzzles["level2"] = new Puzzle(image_library["level2"],6,5,50,50);
+				puzzles["level3"] = new Puzzle(image_library["level3"],7,6,50,50);
+				puzzles["level4"] = new Puzzle(image_library["level4"],6,5,50,50);
 				
 				requestAnimationFrame(Engine.animate); // init animation when all is ready
-				
-				// init puzzle
-				puzzles["pumpkin_puzzle"] = new Puzzle(image_library["pumpkin1"],10,8);
-				puzzle_handler.set_current_puzzle(puzzles["pumpkin_puzzle"]);
-				puzzle_handler.scramble();
-				Game.start_timer();
 			},
 			
 			log: function(message)
@@ -129,8 +127,6 @@ var Engine = (
 			{
 				// call canvas handler
 				Canvas.draw(lapse);
-				
-				puzzle_handler.current_puzzle.handle_selected();
 			},
 			
 			// outdated, to be deprecated
@@ -147,30 +143,12 @@ var Engine = (
 			
 			handle_mouse_up: function(event)
 			{
-				var bounds = Canvas.canvas.getBoundingClientRect();
-				var mouseX = event.clientX - bounds.x;
-				var mouseY = event.clientY - bounds.y;
-				
-				puzzle_handler.handle_click(mouseX, mouseY);
+				page_manager.current_page.handle_mouse_up(event);
 			},
 			// only click UI once, but click puzzle_handler twice
 			handle_mouse_down: function(event)
 			{
-				var bounds = Canvas.canvas.getBoundingClientRect();
-				var mouseX = event.clientX - bounds.x;
-				var mouseY = event.clientY - bounds.y;
-				
-				if (mouseX < puzzle_handler.boundingRectangle.width - puzzle_handler.boundingRectangle.x
-					&& mouseY < puzzle_handler.boundingRectangle.height - puzzle_handler.boundingRectangle.y
-					&& mouseX > puzzle_handler.boundingRectangle.x
-					&& mouseY > puzzle_handler.boundingRectangle.y)
-				{
-					puzzle_handler.handle_click(mouseX, mouseY);
-				}
-				else 
-				{
-					
-				}
+				page_manager.current_page.handle_mouse_down(event);
 			},
 		}
 	}

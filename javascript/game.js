@@ -43,7 +43,7 @@ var Game = (
 				// write the clock.
 				context.fillStyle = "black";
 				context.font = "60px Arial"
-				var secondsString = (Math.round((time / 1000))%60).toString();
+				var secondsString = Math.round(((time / 1000))%60).toString();
 				if (secondsString.length < 2) secondsString = "0" + secondsString;
 				
 				var minuteString = Math.floor((time/1000)/60).toString();

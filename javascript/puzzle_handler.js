@@ -86,7 +86,7 @@ var puzzle_handler = (
 			{
 				var mouseX = x - boundingRectangle.x;
 				var mouseY = y - boundingRectangle.y;
-				current_puzzle.handle_click(mouseX, mouseY);
+				if (current_puzzle) current_puzzle.handle_click(mouseX, mouseY);
 			},
 		}
 	}

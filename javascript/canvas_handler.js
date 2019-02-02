@@ -12,14 +12,16 @@ var Canvas = (
 	{
 		// constants 
 		var DEFAULT_CANVAS = "main_canvas";
-		
+		var DEFAULT_FONT_SIZE = 18;
+		var DEFAULT_FONT = "Consolas";
 		// private fields
 		var canvas;
 		var context;
 		
 		return {
 			get canvas() {return canvas},
-			
+			get DEFAULT_FONT_SIZE() { return DEFAULT_FONT_SIZE },
+			get DEFAULT_FONT() { return DEFAULT_FONT },
 			initialize: function()
 			{
 				Engine.log("Initializing Canvas...");
@@ -33,8 +35,12 @@ var Canvas = (
 				
 				// clear and draw
 				context.clearRect(0, 0, canvas.width, canvas.height);
-				
-				context.save();
+				// reset font
+				context.font = DEFAULT_FONT_SIZE + "px" + " " + DEFAULT_FONT;
+				// leave everything to page_manager
+				page_manager.current_page.draw(context, lapse);
+				/*
+				// draw from the current_page
 				// draw a border around the viewport of the puzzle
 				context.strokeStyle = "black";
 				context.lineWidth = "1px";
@@ -55,12 +61,9 @@ var Canvas = (
 				
 				// draw the UI on the right.
 				Game.draw(context, lapse);
+				*/
 			},
-			
-			draw_background: function()
-			{
-				
-			},
+
 		}
 	}
 )();
