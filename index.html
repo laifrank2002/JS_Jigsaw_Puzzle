@@ -10,7 +10,8 @@
 	<script src="javascript/game.js"></script>
 	<script src="javascript/JS_page.js"></script>
 	<script src="javascript/JS_button.js"></script>
-	<script src="javascript/JS_tooltip.js"></script>
+	<script src="javascript/JS_label.js"></script>
+	<script src="javascript/JS_image.js"></script>
 	<script src="javascript/page_manager.js"></script>
 	
 	<script src="javascript/puzzle.js"></script>
@@ -26,6 +27,10 @@
 			"level2": new puzzle_image("assets/puzzles/downtown.jpg",500,400),
 			"level3": new puzzle_image("assets/puzzles/black_forest_cloudy.JPG",500,400),
 			"level4": new puzzle_image("assets/puzzles/toronto_crest_1.png",500,400),
+		};
+		
+		var audio_library = {
+			"snap": new Audio("assets/audio/snap.wav"),
 		};
 		
 		// when the window is loaded, then the engine can be safely initialized

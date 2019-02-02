@@ -12,7 +12,7 @@ body{
 #canvas_container {
 	border: 1px solid grey;
 	margin: auto;
-	margin-top: 0px; /*I'm doing this for you, Kongregate.*/
+	margin-top: 15px;
 	width: 800px;
 	height: 500px;
 }

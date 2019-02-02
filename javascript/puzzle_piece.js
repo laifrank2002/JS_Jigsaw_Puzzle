@@ -205,6 +205,8 @@ function puzzle_piece(puzzle_image, sx, sy, sWidth, sHeight, x, y, width, height
 			this.x = this.original_x;
 			this.y = this.original_y;
 			this.isSnapped = true;
+			// play a snap sound 
+			audio_library["snap"].play();
 		}
 		
 		/*
